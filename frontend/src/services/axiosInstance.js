@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:9090/api",
+  // baseURL: "http://localhost:9090/api",
+  baseURL: "https://images-drive-with-nested-folders.onrender.com/api",
 });
 
 axiosInstance.interceptors.request.use((config) => {
