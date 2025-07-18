@@ -293,20 +293,35 @@ const FolderView = () => {
           </div>
         )}
 
-        {/* Upload Image Modal */}
+        {/* Upload Image Modal - Enhanced with validation */}
         {showImageModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
               <h2 className="text-lg font-semibold mb-4">Upload Image</h2>
-              <input
-                type="text"
-                value={imageName}
-                onChange={(e) => setImageName(e.target.value)}
-                placeholder="Enter image name"
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                disabled={isUploadingImage}
-              />
+              
+              {/* Image Name Input */}
               <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Image Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={imageName}
+                  onChange={(e) => setImageName(e.target.value)}
+                  placeholder="Enter image name"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  disabled={isUploadingImage}
+                />
+                {!imageName.trim() && (
+                  <p className="text-red-500 text-sm mt-1">Please enter an image name</p>
+                )}
+              </div>
+
+              {/* File Selection */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Image File <span className="text-red-500">*</span>
+                </label>
                 <label className={`inline-block bg-purple-600 text-white font-medium px-4 py-2 rounded cursor-pointer hover:bg-purple-700 transition ${isUploadingImage ? 'opacity-50 cursor-not-allowed' : ''}`}>
                   Choose File
                   <input
@@ -317,11 +332,31 @@ const FolderView = () => {
                     disabled={isUploadingImage}
                   />
                 </label>
-                {imageFile && (
-                  <span className="ml-2 text-sm text-gray-600">{imageFile.name}</span>
+                {imageFile ? (
+                  <div className="mt-2 text-sm text-green-600 flex items-center gap-1">
+                    <span>✓</span>
+                    <span>Selected: {imageFile.name}</span>
+                  </div>
+                ) : (
+                  <p className="text-red-500 text-sm mt-2">Please select an image file</p>
                 )}
               </div>
 
+              {/* Validation Warning */}
+              {(!imageName.trim() || !imageFile) && (
+                <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-yellow-600">⚠️</span>
+                    <span className="text-yellow-800 text-sm font-medium">Required fields missing</span>
+                  </div>
+                  <ul className="text-yellow-700 text-sm mt-1 ml-6">
+                    {!imageName.trim() && <li>• Image name is required</li>}
+                    {!imageFile && <li>• Image file must be selected</li>}
+                  </ul>
+                </div>
+              )}
+
+              {/* Action Buttons */}
               <div className="flex justify-end gap-3">
                 <button
                   className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
@@ -337,7 +372,7 @@ const FolderView = () => {
                 <button
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   onClick={handleUploadImage}
-                  disabled={isUploadingImage}
+                  disabled={isUploadingImage || !imageName.trim() || !imageFile}
                 >
                   {isUploadingImage && (
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
