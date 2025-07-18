@@ -1,7 +1,24 @@
+import axios from 'axios';
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+
+  const serverShooterCall = () =>{
+    useEffect(()=>{
+      const res = axios.get('https://images-drive-with-nested-folders.onrender.com/')
+      .then((res)=>{
+        console.log(res.data)
+      })
+      .catch((e)=>{
+        console.log(e);  
+      })
+    },[])
+  }
+
+  serverShooterCall();
+
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-10 flex flex-col items-center text-center">
