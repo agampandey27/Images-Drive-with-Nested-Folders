@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import "tailwindcss";
+
+body{
+  font-family: "Outfit", sans-serif;
+  font-weight: 200;
+  /* background: #212121; */
+  /* color: #fff; */
+}
+
+/* body { */
+  /* font-family: "Outfit", sans-serif; */
+  /* font-weight: 200; */
+  /* background: linear-gradient(135deg, #0f172a, #3b0764); blue → purple */
+  /* min-height: 100vh; */
+  /* margin: 0; */
+  /* color: #fff; */
+  /* background-attachment: fixed; */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+/* } */
